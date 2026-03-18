@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:frases/teladois.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'teste'),
     );
   }
 }
@@ -50,14 +51,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _trocarTela(){
+    Navigator.push(context, MaterialPageRoute(  builder: (context) => Teladois(title: "pedra")));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child:
-       GestureDetector(
+       InkWell(
+
          onTap: alterarCor,
          onDoubleTap: alterarCorAleatoria,
+         onLongPress: _trocarTela,
          child:  Container(
            width: 150,
            height: 150,
