@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Teladois extends StatefulWidget {
-  const Teladois({super.key, required this.title});
+  const Teladois({super.key});
 
-  final String title;
 
   @override
   State<Teladois> createState() => _TeladoisState();
@@ -16,10 +15,15 @@ _voltar(BuildContext context){
 class _TeladoisState extends State<Teladois> {
   @override
   Widget build(BuildContext context) {
+
+    final args = ModalRoute.of(context)!.settings.arguments  as Map<String, String>?;;
+
+    print(args!['title']);
+
     return Scaffold(
       appBar: AppBar(
 
-        title: Text(widget.title),
+        title: Text(args!['title']!),
       ),
       body: Center(
         child: GestureDetector(

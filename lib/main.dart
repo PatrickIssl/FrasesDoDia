@@ -15,7 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: MyHomePage(title: 'teste'),
+      initialRoute: '/',
+      routes: {
+        "/": (context) => MyHomePage(title: ''),
+        "/tela-dois" : (context) => Teladois()
+
+      },
     );
   }
 }
@@ -52,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _trocarTela(){
-    Navigator.push(context, MaterialPageRoute(  builder: (context) => Teladois(title: "pedra")));
+    Navigator.pushNamed(context, '/tela-dois', arguments: {"title" : 'Tela Dois'});
   }
 
   @override
