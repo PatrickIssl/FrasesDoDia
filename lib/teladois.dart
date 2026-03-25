@@ -18,11 +18,8 @@ class _TeladoisState extends State<Teladois> {
 
     final args = ModalRoute.of(context)!.settings.arguments  as Map<String, String>?;;
 
-    print(args!['title']);
-
     return Scaffold(
       appBar: AppBar(
-
         title: Text(args!['title']!),
       ),
       body: Center(
@@ -32,6 +29,7 @@ class _TeladoisState extends State<Teladois> {
             height: 150,
             width: 150,
             color: Colors.red,
+            child: Text(args['jogada']!, style: TextStyle(fontSize: 150),),
           ),
         )
       ),

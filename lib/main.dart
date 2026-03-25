@@ -18,8 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         "/": (context) => MyHomePage(title: ''),
-        "/tela-dois" : (context) => Teladois()
-
+        "/tela-dois": (context) => Teladois(),
       },
     );
   }
@@ -34,49 +33,76 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _textoNome = new TextEditingController();
+  String erro = '';
+  DateTime? data;
 
-  bool trocarCor = true;
-  var corNova = Color.fromRGBO(0, 255, 0, 1);
-
-  void alterarCor(){
+  mostrarData() async {
+    DateTime? newdata = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
     setState(() {
-      trocarCor = !trocarCor;
-      if(trocarCor){
-        corNova = Color.fromRGBO(0, 255, 0, 1);
-      }else{
-        corNova = Color.fromRGBO(255, 0, 0, 1);
-      }
+      data = newdata;
     });
-  }
-
-  alterarCorAleatoria(){
-    Random random = new Random();
-    setState(() {
-      corNova = Color.fromRGBO(random.nextInt(255), random.nextInt(255), random.nextInt(255), 1);
-    });
-  }
-
-  _trocarTela(){
-    Navigator.pushNamed(context, '/tela-dois', arguments: {"title" : 'Tela Dois'});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:
-       InkWell(
-
-         onTap: alterarCor,
-         onDoubleTap: alterarCorAleatoria,
-         onLongPress: _trocarTela,
-         child:  Container(
-           width: 150,
-           height: 150,
-           color: corNova,
-         ),
-
-       )
+        child: Column(
+          mainAxisAlignment: .spaceAround,
+          children: [
+            Container(
+              width: 300,
+              child: TextField(
+                keyboardType: .emailAddress,
+                controller: _textoNome,
+                decoration: InputDecoration(
+                  error: Text(erro),
+                  label: Text('Nome'),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            Container(
+              width: 300,
+              child: TextField(
+                keyboardType: .emailAddress,
+                decoration: InputDecoration(
+                  error: Text(erro),
+                  label: Text('Nome'),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            Text('${data?.day}/${data?.month}/${data?.year}'),
+            DropdownButton(
+              items: ['teste', 'teste2']
+                  .map((String valor) {
+                return DropdownMenuItem<String>(
+                  value: valor,
+                  child: Text(valor),
+                );
+              }).toList(),
+              onChanged: (valor) => {},
+            ),
+            ElevatedButton(
+              onPressed: () => {
+                if (_textoNome.text.isEmpty)
+                  {
+                    setState(() {
+                      erro = 'Falta o nome';
+                    }),
+                    mostrarData(),
+                  },
+              },
+              child: Text('Printar valor'),
+            ),
+          ],
+        ),
       ),
     );
   }
