@@ -36,16 +36,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final _textoNome = new TextEditingController();
   String erro = '';
   DateTime? data;
+  String valorDropdown = 'teste';
+
+  // mostrarData() async {
+  //   DateTime? newdata = await showDatePicker(
+  //     context: context,
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime.now(),
+  //   );
+  //   setState(() {
+  //     data = newdata;
+  //   });
+  // }
+
 
   mostrarData() async {
-    DateTime? newdata = await showDatePicker(
-      context: context,
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
-    );
-    setState(() {
-      data = newdata;
-    });
+    Navigator.pushNamed(context, '/tela-dois');
   }
 
   @override
@@ -87,7 +93,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(valor),
                 );
               }).toList(),
-              onChanged: (valor) => {},
+              value: valorDropdown,
+              onChanged: (valor) => {
+                setState(() {
+                  valorDropdown = valor!;
+                })
+              },
             ),
             ElevatedButton(
               onPressed: () => {
