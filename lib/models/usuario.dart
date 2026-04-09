@@ -6,7 +6,8 @@ class Usuario {
   Usuario(this.nome, this.zipcode);
 
   factory Usuario.fromJson(Map json){
-    return Usuario(json['name'], json['address']['zipcode']);
+    return Usuario(json['name'],
+        json['address']['zipcode']);
   }
 
 }
